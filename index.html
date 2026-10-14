@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="hy">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050a18">
+<title>Ditech — IT լուծումներ</title>
+<link rel="icon" type="image/png" href="logo.png">
+<meta name="description" content="Ditech — վեբ, մոբայլ և desktop համակարգեր բիզնեսի համար։">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050a18; --bg2:#08122a; --ink:#eaf1ff; --muted:#93a4c6;
+  --card:rgba(255,255,255,.045); --card-b:rgba(130,170,255,.16);
+  --blue:#3fa3e0; --cyan:#6cc4ee; --orange:#ff9f66; --glow:rgba(63,163,224,.35);
+  --accent-t:#6cc4ee; --orange-t:#ff9f66;
+  --mock:linear-gradient(160deg,#0a1a40,#071026); --mock-in:#050c1d; --ph:linear-gradient(160deg,#102a63,#0a1633);
+  --screen:linear-gradient(145deg,#06122e,#0b2257 60%,#07142f); --screen-b:#1a2542; --base:linear-gradient(#2a3a66,#121c38);
+  --radius:20px; --ease:cubic-bezier(.22,.8,.2,1);
+  --font:"Noto Sans Armenian","Noto Sans","Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Sora","Noto Sans Armenian",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1180px,calc(100% - 32px));margin-inline:auto}
+#bg{position:fixed;inset:0;z-index:-2;width:100%;height:100%}
+.aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(900px 500px at 15% -5%,rgba(63,163,224,.28),transparent 60%),
+   radial-gradient(700px 500px at 100% 20%,rgba(255,159,102,.14),transparent 60%),
+   radial-gradient(800px 600px at 50% 110%,rgba(108,196,238,.12),transparent 60%)}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--orange));z-index:100}
+
+/* NAV */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:90;width:min(1180px,94%);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 14px 10px 22px;
+  border:1px solid var(--card-b);border-radius:999px;background:rgba(8,16,38,.55);backdrop-filter:blur(18px) saturate(140%);
+  transition:.4s var(--ease);animation:navIn 1s var(--ease) both}
+.nav.scrolled{box-shadow:0 12px 40px rgba(0,0,0,.35);background:rgba(8,16,38,.8)}
+@keyframes navIn{from{opacity:0;transform:translate(-50%,-30px)}}
+.brand{font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
+.brand{color:var(--orange)}
+.brand span{color:var(--blue)}
+.menu{display:flex;gap:6px}
+.menu a{padding:8px 14px;border-radius:999px;font-size:.92rem;color:var(--muted);transition:.3s}
+.menu a:hover,.menu a.active{color:var(--ink);background:rgba(120,160,255,.14)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.lang{position:relative}
+.lang-btn{height:40px;padding:0 12px 0 10px;border-radius:999px;border:1px solid var(--card-b);background:var(--card);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:.78rem;letter-spacing:.04em}
+.lang-btn:hover{border-color:var(--cyan);box-shadow:0 0 18px var(--glow)}
+.flag{width:28px;height:20px;border-radius:4px;overflow:hidden;flex:none;display:block;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.28)}
+.flag svg{width:100%;height:100%;display:block}
+.flag::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.38),rgba(255,255,255,.06) 42%,transparent 58%);pointer-events:none}
+.lang-btn .flag{width:22px;height:16px;border-radius:3px}
+.lang-name{display:inline-flex;align-items:center;gap:10px}
+.lang-dialog{position:absolute;top:calc(100% + 10px);right:0;min-width:210px;padding:8px;border-radius:18px;border:1px solid var(--card-b);background:rgba(8,16,38,.96);backdrop-filter:blur(18px);box-shadow:0 24px 50px rgba(0,0,0,.45);z-index:5}
+.lang-dialog[hidden]{display:none}
+.lang-title{margin:4px 10px 6px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.lang-dialog button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:0;border-radius:12px;background:transparent;color:var(--ink);font-family:inherit;font-size:.95rem;cursor:pointer;text-align:left}
+.lang-dialog button:hover,.lang-dialog button.active{background:rgba(120,160,255,.14)}
+.lang-dialog button.active::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--card-b);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:.3s}
+.icon-btn:hover{border-color:var(--cyan);box-shadow:0 0 18px var(--glow)}
+.icon-btn svg{width:18px;height:18px}
+.burger{display:none}
+.btn,.outline{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:14px;font-weight:600;font-size:.95rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s;font-family:inherit;border:0}
+.btn{background:linear-gradient(135deg,#2c95d8,#1b73b4);color:#fff;box-shadow:0 10px 30px rgba(63,163,224,.4)}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s var(--ease)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(63,163,224,.55)}
+.btn:hover::after{transform:translateX(120%)}
+.outline{border:1px solid var(--card-b);color:var(--ink);background:var(--card)}
+.outline:hover{border-color:var(--cyan);transform:translateY(-3px);box-shadow:0 0 24px var(--glow)}
+.btn svg,.outline svg{width:16px;height:16px;transition:transform .3s}
+.btn:hover svg{transform:translateX(4px)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--accent-t);padding:6px 14px;border:1px solid var(--card-b);border-radius:999px;background:var(--card)}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 0 var(--orange);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px transparent}}
+h1{font-family:var(--display);font-size:clamp(2.3rem,5vw,4.2rem);line-height:1.12;letter-spacing:-.025em;margin:22px 0 20px;font-weight:700}
+h1 .grad{background:linear-gradient(120deg,var(--cyan),var(--blue) 45%,var(--orange));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 6s ease-in-out infinite alternate}
+@keyframes shift{to{background-position:100% 0}}
+.hero p.sub{color:var(--muted);font-size:1.08rem;max-width:520px}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin:30px 0 38px}
+.mini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:560px}
+.mini{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:var(--card);border:1px solid var(--card-b);transition:.4s var(--ease)}
+.mini:hover{transform:translateY(-5px);border-color:var(--cyan)}
+.mini svg{width:26px;height:26px;color:var(--accent-t);flex:none}
+.mini b{display:block;font-size:.88rem}
+.mini small{color:var(--muted);font-size:.74rem;line-height:1.3;display:block}
+
+/* hero visual */
+.visual{position:relative;aspect-ratio:1/1;max-width:600px;margin-inline:auto;width:100%;perspective:1200px}
+.orbit{position:absolute;inset:6%;border-radius:50%;border:1px solid rgba(108,196,238,.25);animation:spin 30s linear infinite}
+.orbit.o2{inset:-2%;border-color:rgba(255,159,102,.2);animation-duration:46s;animation-direction:reverse;transform:rotateX(60deg)}
+.orbit::after{content:"";position:absolute;top:8%;left:14%;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--cyan) 40%,#1b4fb0);box-shadow:0 0 30px var(--cyan)}
+.orbit.o2::after{background:radial-gradient(circle at 30% 30%,#fff,var(--orange) 40%,#b2501a);box-shadow:0 0 30px var(--orange);left:auto;right:10%;top:auto;bottom:16%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.orbit.o2{animation-name:spin2}
+@keyframes spin2{from{transform:rotateX(60deg) rotate(0)}to{transform:rotateX(60deg) rotate(-360deg)}}
+.halo{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(63,163,224,.5),transparent 65%);filter:blur(30px);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.15);opacity:.7}}
+.laptop{position:absolute;left:50%;top:50%;width:68%;transform:translate(-50%,-52%) rotateY(-12deg) rotateX(6deg);transform-style:preserve-3d;animation:float 7s ease-in-out infinite;transition:transform .2s}
+@keyframes float{50%{margin-top:-14px}}
+.screen{aspect-ratio:16/10;border-radius:16px 16px 6px 6px;border:6px solid var(--screen-b);background:var(--screen);position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(130,170,255,.35),0 30px 80px rgba(63,163,224,.35)}
+.screen svg{position:absolute;inset:0;width:100%;height:100%}
+.screen .path{stroke:var(--blue);stroke-width:1.2;fill:none;stroke-dasharray:6 200;animation:flow 4s linear infinite;opacity:.7}
+.screen .path:nth-child(2n){stroke:var(--orange);animation-duration:5.5s;animation-delay:-1s}
+.screen .path:nth-child(3n){animation-duration:3.2s;animation-delay:-2s}
+@keyframes flow{to{stroke-dashoffset:-206}}
+.screen img{position:absolute;left:50%;top:50%;width:52%;height:auto;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 18px rgba(63,163,224,.35));animation:pulse 5s ease-in-out infinite}
+@keyframes pulse{50%{filter:drop-shadow(0 6px 26px rgba(255,159,102,.5))}}
+.chiplogo{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,5.2vw,3.4rem);letter-spacing:-.03em;color:#fff;text-shadow:0 0 30px var(--blue),0 0 60px rgba(63,163,224,.6)}
+.chiplogo span{background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px var(--blue))}
+.scan{position:absolute;left:0;right:0;height:30%;background:linear-gradient(transparent,rgba(108,196,238,.14),transparent);animation:scan 4s ease-in-out infinite}
+@keyframes scan{0%{top:-30%}100%{top:100%}}
+.base{height:12px;margin:0 -6%;border-radius:0 0 18px 18px;background:var(--base);box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.tag{position:absolute;display:flex;align-items:center;gap:8px;padding:11px 16px;border-radius:14px;font-size:.82rem;font-weight:600;background:rgba(20,40,90,.45);border:1px solid rgba(140,180,255,.3);backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(0,0,0,.35);animation:bob 6s ease-in-out infinite}
+.tag svg{width:18px;height:18px;color:var(--accent-t)}
+.t1{top:6%;left:2%}.t2{top:12%;right:0;animation-delay:-1.5s}.t3{bottom:14%;left:0;animation-delay:-3s}.t4{bottom:6%;right:4%;animation-delay:-4.5s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+
+/* sections */
+.section{padding:100px 0}
+.head{max-width:640px;margin-bottom:36px}
+/* Consistent vertical rhythm between headings and content blocks */
+#about .about{margin-bottom:36px}
+#about .cards + .stats{margin-top:24px}
+#services .cards.three{margin-bottom:72px}
+#services .head{margin-bottom:36px}
+/* Match every section-top gap to the gap before “Մեր ծառայությունները” */
+#services > .head:first-child{margin-top:72px}
+#services > .cards.three + .head{margin-top:72px}
+#why .head,#guarantees .head{margin-bottom:36px}
+#services .head + .cards,#why .head + .steps,#guarantees .head + .cards + .projects{margin-top:0}
+/* Keep the gap from each previous block to the next section heading equal to the
+   gap before “Մեր ծառայությունները”. Avoid double section padding between blocks. */
+#about,#services,#why,#guarantees{padding-bottom:0}
+#services{padding-top:0}
+#why,#guarantees{padding-top:72px}
+.head .eyebrow{color:var(--orange-t)}
+h2{font-family:var(--display);font-size:clamp(1.9rem,3.6vw,2.8rem);letter-spacing:-.02em;line-height:1.15;margin:14px 0 12px}
+.lead{color:var(--muted)}
+.glass{background:var(--card);border:1px solid var(--card-b);border-radius:var(--radius);backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:transform .5s var(--ease),border-color .4s,box-shadow .4s}
+.glass::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(108,196,238,.16),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.glass:hover::before{opacity:1}
+.glass:hover{border-color:rgba(108,196,238,.5);box-shadow:0 20px 60px rgba(0,0,0,.35),0 0 40px var(--glow)}
+
+/* marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--card-b);background:rgba(120,160,255,.04);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;gap:56px;width:max-content;padding:20px 0;animation:mq 32s linear infinite}
+.track span{font-family:var(--display);font-weight:600;color:var(--muted);font-size:1.05rem;white-space:nowrap;transition:color .3s}
+.track span:hover{color:var(--cyan)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.marquee:hover .track{animation-play-state:paused}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:34px}
+.about h2{margin-top:0;line-height:1.15}
+.about p{color:var(--muted);font-size:1.08rem;line-height:1.85;text-align:left;text-wrap:pretty;word-break:normal;overflow-wrap:break-word;hyphens:manual}
+.codepic{aspect-ratio:16/10;border-radius:var(--radius);border:1px solid var(--card-b);background:#07122b;padding:18px;font:500 .8rem/1.9 ui-monospace,Menlo,Consolas,monospace;color:#9bb7ee;position:relative;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.codepic .dots{display:flex;gap:6px;margin-bottom:12px}
+.codepic .dots i{width:10px;height:10px;border-radius:50%;background:#ff6b6b}.codepic .dots i:nth-child(2){background:#ffc857}.codepic .dots i:nth-child(3){background:#4ade80}
+.k{color:#c792ea}.s{color:#7fe3a3}.f{color:#5fd4ff}.o{color:var(--orange)}
+.cursor{display:inline-block;width:8px;height:1em;background:var(--cyan);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.cards{display:grid;gap:20px}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.cards.four{grid-template-columns:repeat(4,1fr)}
+.card{padding:26px}
+.card .num{font-family:var(--display);font-size:1.7rem;font-weight:700;color:var(--blue)}
+.card h3{font-size:1.1rem;margin:8px 0 6px}
+.card p{color:var(--muted);font-size:.92rem}
+.ico{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(63,163,224,.2),rgba(255,159,102,.12));border:1px solid var(--card-b);margin-bottom:18px;color:var(--accent-t);transition:.5s var(--ease)}
+.ico svg{width:26px;height:26px}
+.card:hover .ico{transform:rotate(-8deg) scale(1.1);color:var(--orange)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px}
+.stat{padding:24px;text-align:center}
+.stat b{font-family:var(--display);font-size:2.4rem;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat small{display:block;color:var(--muted)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+.steps::before{content:"";position:absolute;top:30px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--blue),var(--orange),var(--cyan));transform-origin:left;transform:scaleX(0);transition:transform 1.8s var(--ease) .2s;opacity:.7}
+.steps.in::before{transform:scaleX(1)}
+.step{text-align:center;padding:0 8px}
+.dot{width:60px;height:60px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;font-family:var(--display);font-weight:700;background:var(--bg2);border:2px solid var(--blue);box-shadow:0 0 0 6px rgba(63,163,224,.12),0 0 30px var(--glow);position:relative;z-index:1;transition:.4s var(--ease)}
+.step:nth-child(2) .dot{border-color:var(--cyan)}.step:nth-child(3) .dot{border-color:var(--orange)}.step:nth-child(4) .dot{border-color:#6aa8ff}
+.step:hover .dot{transform:scale(1.12)}
+.step h3{font-size:1.05rem;margin-bottom:4px}
+.step p{color:var(--muted);font-size:.9rem}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.proj{padding:14px 14px 22px}
+.mock{height:200px;border-radius:14px;margin-bottom:18px;position:relative;overflow:hidden;background:var(--mock);border:1px solid var(--card-b)}
+.proj h3{padding-inline:6px;font-size:1.05rem}
+.proj p{padding-inline:6px;color:var(--muted);font-size:.85rem}
+.proj .go{position:absolute;right:20px;bottom:20px;width:36px;height:36px;border-radius:50%;border:1px solid var(--card-b);display:grid;place-items:center;transition:.4s var(--ease)}
+.proj:hover .go{background:var(--blue);transform:rotate(-45deg);border-color:var(--blue)}
+.go svg{width:16px;height:16px}
+/* dashboard mock */
+.dashboard .side{position:absolute;left:0;top:0;bottom:0;width:16%;background:rgba(63,163,224,.1)}
+.dashboard .bars{position:absolute;left:22%;right:6%;bottom:14%;height:50%;display:flex;align-items:flex-end;gap:8px}
+.dashboard .bars i{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(var(--cyan),var(--blue));height:var(--h);transform-origin:bottom;animation:grow 2.6s var(--ease) infinite alternate;animation-delay:var(--d)}
+@keyframes grow{from{transform:scaleY(.35)}}
+.dashboard .kpis{position:absolute;left:22%;right:6%;top:12%;display:flex;gap:8px}
+.dashboard .kpis i{flex:1;height:28px;border-radius:8px;background:rgba(63,163,224,.14)}
+.dashboard .kpis i:first-child{background:rgba(255,159,102,.25)}
+/* mobile mock */
+.mobile .ph{position:absolute;top:18px;width:84px;height:170px;border-radius:18px;border:3px solid var(--screen-b);background:var(--ph);padding:10px 7px;display:flex;flex-direction:column;gap:6px}
+.mobile .ph:nth-child(1){left:calc(50% - 98px);transform:rotate(-6deg)}.mobile .ph:nth-child(2){left:calc(50% + 14px);transform:rotate(5deg);top:30px;animation:bob 6s ease-in-out infinite}
+.ph i{display:block;height:16px;border-radius:5px;background:rgba(63,163,224,.18)}.ph i:first-child{height:50px;background:linear-gradient(135deg,var(--blue),var(--cyan));opacity:.8}.ph i:nth-child(3){background:rgba(255,159,102,.35)}
+/* desktop mock */
+.desktop .win{position:absolute;inset:22px 26px;border-radius:10px;background:var(--mock-in);border:1px solid var(--card-b);overflow:hidden}
+.win .bar{height:20px;background:rgba(63,163,224,.12);display:flex;gap:5px;align-items:center;padding-left:8px}
+.win .bar i{width:6px;height:6px;border-radius:50%;background:#ff6b6b}.win .bar i:nth-child(2){background:#ffc857}.win .bar i:nth-child(3){background:#4ade80}
+.win .ln{height:6px;margin:10px 12px 0;border-radius:3px;background:var(--cyan);opacity:.5;width:var(--w);animation:ty 3s ease-in-out infinite alternate;animation-delay:var(--d)}
+.win .ln:nth-child(odd){background:var(--orange)}
+@keyframes ty{from{transform:scaleX(.5);transform-origin:left}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;padding:36px;align-items:center}
+.info{display:grid;gap:12px}
+.info div{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:14px;background:rgba(120,160,255,.06);border:1px solid var(--card-b)}
+.info svg{width:22px;height:22px;color:var(--accent-t);flex:none}
+.info small{display:block;color:var(--muted);font-size:.78rem;line-height:1.3}
+.contact p{color:var(--muted);margin-bottom:24px}
+footer{border-top:1px solid var(--card-b);margin-top:90px;padding:28px 0 max(28px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:.88rem}
+.soc{display:flex;gap:10px}
+
+/* contact choice modal */
+.contact-modal{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px;background:rgba(2,6,18,.72);backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;transition:.3s var(--ease)}
+.contact-modal.open{opacity:1;visibility:visible;pointer-events:auto}
+.contact-modal-card{width:min(430px,100%);padding:28px;border-radius:24px;background:rgba(8,18,42,.98);border:1px solid var(--card-b);box-shadow:0 30px 90px rgba(0,0,0,.55);position:relative;transform:translateY(16px) scale(.98);transition:.3s var(--ease);text-align:center}
+.contact-modal.open .contact-modal-card{transform:none}
+.contact-modal-card h3{font-family:var(--display);font-size:1.45rem;margin-bottom:8px}
+.contact-modal-card p{color:var(--muted);margin-bottom:22px}
+.contact-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.contact-option{display:flex;align-items:center;justify-content:center;gap:9px;padding:14px 16px;border-radius:14px;border:1px solid var(--card-b);background:var(--card);color:var(--ink);font:600 .95rem var(--font);cursor:pointer;transition:.3s var(--ease)}
+.contact-option:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 0 22px var(--glow)}
+.contact-option svg{width:20px;height:20px}
+.contact-modal-close{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--card-b);background:var(--card);color:var(--ink);cursor:pointer;font-size:20px;line-height:1}
+@media(max-width:480px){.contact-options{grid-template-columns:1fr}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--rd,0s)}
+.rv.in{opacity:1;transform:none}
+.hero-in{animation:up 1s var(--ease) both;animation-delay:var(--rd,0s)}
+@keyframes up{from{opacity:0;transform:translateY(30px)}}
+
+.menu-cta{display:none}
+@media(max-width:1240px){
+  .nav{width:min(1180px,calc(100% - 16px));padding:8px 8px 8px 16px;top:max(10px,env(safe-area-inset-top))}
+  .brand{font-size:1.28rem}
+  .burger{display:grid}
+  .menu{position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;gap:4px;padding:10px;border-radius:22px;background:rgba(8,16,38,.96);border:1px solid var(--card-b);box-shadow:0 24px 50px rgba(0,0,0,.4);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s;z-index:2}
+  .menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .35s var(--ease),transform .35s var(--ease),visibility 0s}
+  .menu a{padding:14px 16px;font-size:1rem;color:var(--ink)}
+  .menu a.menu-cta,.menu a.menu-cta:hover,.menu a.menu-cta.active{display:block;margin-top:4px;text-align:center;color:#fff;background:linear-gradient(135deg,#2c95d8,#1b73b4);border-radius:14px}
+  .nav .outline.cta{display:none}
+}
+@media(max-width:980px){
+  .hero-grid,.about,.contact{grid-template-columns:1fr}
+  .cards.four,.stats{grid-template-columns:repeat(2,1fr)}
+  .cards.three,.projects{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;row-gap:28px}.steps::before{display:none}
+  .hero{min-height:auto;padding:108px 0 48px}
+  .section{padding:72px 0}
+  #about,#services,#why,#guarantees{padding-bottom:0}
+  #services{padding-top:0}
+  #services > .head:first-child,#services > .cards.three + .head{margin-top:56px}
+  #why,#guarantees{padding-top:56px}
+  .visual{max-width:460px}
+  .head{margin-bottom:28px}
+  #services .cards.three{margin-bottom:56px}
+  .contact{padding:28px 22px}
+  footer{margin-top:64px}
+}
+@media(max-width:680px){
+  h1{font-size:clamp(1.85rem,9vw,2.5rem);margin:16px 0 14px}
+  h2{font-size:clamp(1.6rem,7vw,2.1rem)}
+  .hero{padding:96px 0 28px}
+  .hero p.sub{font-size:1rem;max-width:none}
+  .section{padding:56px 0}
+  #about,#services,#why,#guarantees{padding-bottom:0}
+  #services{padding-top:0}
+  #services > .head:first-child,#services > .cards.three + .head{margin-top:44px}
+  #why,#guarantees{padding-top:44px}
+  .actions{flex-direction:column;align-items:stretch;margin:22px 0 26px}
+  .actions .btn,.actions .outline{width:100%;justify-content:center;min-height:48px}
+  .mini-row{grid-template-columns:1fr;max-width:none;gap:10px}
+  .mini{padding:12px}
+  .cards.four,.cards.three{grid-template-columns:1fr}
+  .card{padding:20px}
+  .stats{gap:12px}
+  .stat{padding:18px 12px}
+  .stat b{font-size:clamp(1.6rem,8vw,2.1rem)}
+  .stat small{font-size:.78rem}
+  .steps{grid-template-columns:1fr;gap:12px}
+  .step{display:grid;grid-template-columns:54px 1fr;text-align:left;align-items:center;column-gap:14px;row-gap:2px;padding:12px 14px;border-radius:16px;background:var(--card);border:1px solid var(--card-b)}
+  .dot{grid-column:1;grid-row:1 / span 2;margin:0;width:54px;height:54px}
+  .step h3,.step p{grid-column:2}
+  .visual{aspect-ratio:auto;max-width:440px;height:auto;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"stage stage" "t1 t2" "t3 t4";gap:10px;perspective:none;margin-top:8px}
+  .halo,.orbit{display:none}
+  .laptop{grid-area:stage;position:relative;left:auto;top:auto;width:min(100%,300px);margin:4px auto 2px;transform:none;animation:none}
+  .base{margin:0}
+  .t1{grid-area:t1}.t2{grid-area:t2}.t3{grid-area:t3}.t4{grid-area:t4}
+  .tag{position:static;justify-content:center;animation:none;font-size:.78rem;padding:10px 12px;text-align:left}
+  .codepic{font-size:.72rem;padding:14px;overflow-x:auto}
+  .about{gap:22px;margin-bottom:22px}
+  .projects{gap:14px}
+  .mock{height:180px}
+  .contact{padding:22px 16px;gap:20px}
+  .contact p{margin-bottom:18px}
+  .info div{padding:12px}
+  .track{gap:36px}
+  .track span{font-size:.95rem}
+  footer{flex-direction:column;text-align:center;gap:14px}
+}
+@media(max-width:400px){
+  .wrap{width:min(1180px,calc(100% - 24px))}
+  .nav{padding-left:12px}
+  .brand{font-size:1.15rem}
+  .stats{grid-template-columns:1fr 1fr}
+  .tag{font-size:.72rem;padding:9px 10px;gap:6px}
+  .tag svg{width:16px;height:16px}
+  .card h3,.proj h3{font-size:1rem}
+}
+@media(max-width:680px){
+  .about p{ text-align:left; text-wrap:pretty; }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* Balanced readable text in content blocks */
+.cards .card p,
+.steps .step p {
+  text-align: left;
+  text-wrap: pretty;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  line-height: 1.7;
+}
+
+
+/* Balanced card text alignment */
+.cards .card {
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.cards .card h3 {
+  min-height:0;
+  display:block;
+  margin-top:8px;
+  margin-bottom:10px;
+  line-height:1.45;
+}
+.cards .card p {
+  text-align:left !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  hyphens:none !important;
+  line-height:1.65;
+}
+@media(max-width:680px){
+  .cards .card h3{min-height:auto;}
+}
+
+
+/* PARTNERS */
+#partners{padding-top:72px;padding-bottom:0}
+#partners .head{margin-bottom:36px}
+.partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.partner{display:block;padding:26px}
+.partner .p-logo{display:inline-flex;align-items:center;height:54px;padding:0 20px;border-radius:16px;font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);background:linear-gradient(135deg,rgba(63,163,224,.2),rgba(255,159,102,.12));border:1px solid var(--card-b);margin-bottom:16px;transition:transform .4s var(--ease)}
+.partner .p-logo span{color:var(--orange-t)}
+.partner .p-logo-img{padding:0 18px}.partner .p-logo-img img{height:30px;width:auto;display:block}
+.partner .p-logo-light{background:#fff;height:64px;padding:0 14px}.partner .p-logo-light img{height:44px}
+.partner .p-logo-wide{max-width:100%}.partner .p-logo-wide img{height:30px;width:auto;max-width:100%;object-fit:contain}
+.partner:hover .p-logo{transform:rotate(-3deg) scale(1.05)}
+.partner h3{font-size:1.1rem;margin:0 0 6px}
+.partner p{color:var(--muted);font-size:.92rem}
+.partner .p-link{display:inline-block;margin-top:14px;font-weight:700;font-size:.9rem;color:var(--accent-t)}
+.partner.soon{border-style:dashed;display:flex;flex-direction:column;justify-content:center}
+.partner.soon .p-logo{width:54px;padding:0;justify-content:center;font-size:1.6rem;color:var(--orange-t)}
+.discount{display:flex;align-items:center;gap:22px;margin-top:24px;padding:28px 30px;background:linear-gradient(135deg,rgba(63,163,224,.14),rgba(255,159,102,.10));border-color:rgba(108,196,238,.35)}
+.discount .ico{margin:0;flex:none;width:64px;height:64px;color:var(--orange-t)}
+.discount .ico svg{width:30px;height:30px}
+.discount h3{font-family:var(--display);font-size:1.3rem;margin:0 0 6px}
+.discount p{color:var(--muted)}
+@media(max-width:980px){.partners-grid{grid-template-columns:1fr 1fr}#partners{padding-top:56px}}
+@media(max-width:680px){.partners-grid{grid-template-columns:1fr}#partners{padding-top:44px}.partner{padding:20px}.discount{flex-direction:column;align-items:flex-start;padding:22px 20px;gap:14px}}
+
+/* ===== Typography polish: no justified gaps, balanced wrapping ===== */
+p,li,small,.lead,.sub{text-align:left;text-justify:auto;text-align-last:auto;word-spacing:normal;letter-spacing:0;text-wrap:pretty;hyphens:manual;overflow-wrap:break-word;word-break:normal}
+h1,h2,h3,.head h2,.card h3,.step h3,.proj h3,.partner h3{text-wrap:balance;word-spacing:normal;hyphens:manual;overflow-wrap:break-word}
+h1,h2{letter-spacing:-.01em}
+.cards .card h3{min-height:0!important;margin:8px 0 8px;line-height:1.35}
+.cards .card p,.proj p,.partner p,.about p,.contact p{line-height:1.7;max-width:62ch}
+.step p,.stat small,.contact-modal-card p{text-align:center;text-wrap:balance;max-width:none;margin-inline:auto}
+.contact-modal-card h3{text-wrap:balance}
+@media(max-width:680px){.step p,.step h3{text-align:left;text-wrap:pretty}}
+/* Work stages: equal rows (dot / title / text align across all cards) */
+@media(min-width:681px){
+  .steps{align-items:stretch}
+  .step{display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:0;align-content:start}
+  .step .dot{margin-bottom:18px}
+  .step h3{margin:0 0 8px;align-self:start}
+  .step p,.steps .step p{margin:0;align-self:start;text-align:center;text-wrap:balance;max-width:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="aurora"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Ditech"><span>Di</span>tech</a>
+  <nav class="menu" id="menu">
+    <a href="#about" data-i18n="nav.about">Մեր մասին</a><a href="#services" data-i18n="nav.services">Ծառայություններ</a><a href="#why" data-i18n="nav.why"> Աշխատանքային փուլերը</a><a href="#partners" data-i18n="nav.partners">Գործընկերներ</a><a class="menu-cta" href="#contact" data-i18n="nav.contact">Կապ հաստատել</a>
+  </nav>
+  <div class="nav-r">
+    <div class="lang" id="lang">
+      <button class="lang-btn" id="langBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="langDialog" data-i18n-aria="nav.lang" aria-label="Լեզու">
+        <span class="flag" id="langFlag" aria-hidden="true"><svg viewBox="0 0 640 480"><rect width="640" height="160" fill="#D90012"/><rect y="160" width="640" height="160" fill="#0033A0"/><rect y="320" width="640" height="160" fill="#F2A800"/></svg></span>
+        <span id="langCode">HY</span>
+      </button>
+      <div class="lang-dialog" id="langDialog" role="dialog" aria-labelledby="langTitle" hidden>
+        <p class="lang-title" id="langTitle" data-i18n="nav.lang">Լեզու</p>
+        <button type="button" data-lang="hy" class="active" aria-pressed="true"><span class="lang-name"><span class="flag" aria-hidden="true"><svg viewBox="0 0 640 480"><rect width="640" height="160" fill="#D90012"/><rect y="160" width="640" height="160" fill="#0033A0"/><rect y="320" width="640" height="160" fill="#F2A800"/></svg></span>Հայերեն</span></button>
+        <button type="button" data-lang="ru" aria-pressed="false"><span class="lang-name"><span class="flag" aria-hidden="true"><svg viewBox="0 0 640 480"><rect width="640" height="160" fill="#fff"/><rect y="160" width="640" height="160" fill="#0039A6"/><rect y="320" width="640" height="160" fill="#D52B1E"/></svg></span>Русский</span></button>
+        <button type="button" data-lang="en" aria-pressed="false"><span class="lang-name"><span class="flag" aria-hidden="true"><svg viewBox="0 0 640 480"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/><path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/><path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/><path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/></svg></span>English</span></button>
+      </div>
+    </div>
+    <a class="outline cta" href="#contact" data-i18n="nav.contact">Կապ հաստատել</a>
+    <button class="icon-btn burger" id="burger" data-i18n-aria="nav.menu" aria-label="Մենյու" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="hero-in" style="--rd:.1s"><span data-i18n="hero.title">Ակադեմիական հաջողության</span> <span class="grad" data-i18n="hero.grad">վստահելի գործընկեր</span></h1>
+      <p class="sub hero-in" style="--rd:.2s" data-i18n="hero.sub">IT ոլորտի դիպլոմային և կուրսային աշխատանքների մշակում՝ ակադեմիական չափանիշներին համապատասխան։</p>
+      <div class="actions hero-in" style="--rd:.3s">
+        <a class="btn" href="#services"><span data-i18n="hero.services">Մեր ծառայությունները</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="outline" type="button" id="contactChoiceBtn" data-i18n="hero.apply">Կապ մեզ հետ</button>
+      </div>
+    </div>
+
+    <div class="visual hero-in" style="--rd:.25s" id="visual">
+      <div class="halo"></div>
+      <div class="orbit o1"></div><div class="orbit o2"></div>
+      <div class="tag t1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4"/></svg><span data-i18n="tag.web">Վեբ համակարգեր</span></div>
+      <div class="tag t2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><span data-i18n="tag.mobile">Մոբայլ ծրագրեր</span></div>
+      <div class="laptop" id="laptop">
+        <div class="screen">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true">
+            <path class="path" d="M0 40H70L90 60H150"/><path class="path" d="M0 100H50L70 80H140"/><path class="path" d="M0 160H80L100 140H150"/>
+            <path class="path" d="M320 40H250L230 60H170"/><path class="path" d="M320 100H270L250 120H180"/><path class="path" d="M320 160H240L220 140H170"/>
+            <path class="path" d="M160 0V50"/><path class="path" d="M160 200V150"/>
+          </svg>
+          <img src="logo.png" alt="Ditech" width="418" height="252">
+          <div class="scan"></div>
+        </div>
+        <div class="base"></div>
+      </div>
+      <div class="tag t3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1A4.5 4.5 0 0117 18z"/></svg><span data-i18n="tag.desktop">Desktop ծրագրեր</span></div>
+      <div class="tag t4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><span data-i18n="tag.db">Տվյալների բազաներ</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<section id="about" class="wrap section">
+  <div class="about">
+    <div class="rv">
+      <h2 data-i18n="about.eye">Մեր մասին</h2>
+      <p data-i18n="about.text"> Ditech-ն աջակցում է ուսանողներին հաղթահարել ակադեմիական ճանապարհի բարդությունները՝ երաշխավորելով բարձր որակ և սահմանված չափանիշների պահպանում։ Աշխատանքի մոտեցումը համադրում է գործնական ծրագրավորումն ու ակադեմիական պահանջները՝ ստանալով ֆունկցիոնալ ծրագրային համակարգ և դրա գրագետ ակադեմիական հենքը։</p>
+    </div>
+    <div class="codepic rv" style="--rd:.15s">
+      <div class="dots"><i></i><i></i><i></i></div>
+<span class="k">const</span> <span class="f">ditech</span> = {<br>
+&nbsp;&nbsp;web: <span class="s">"HTML · CSS · JS "</span>,<br>
+&nbsp;&nbsp;mobile: <span class="s">"Kotlin · Flutter"</span>,<br>
+&nbsp;&nbsp;desktop: <span class="s">"Java · Python · C#"</span>,<br>
+&nbsp;&nbsp;db: <span class="s">"PostgreSQL · MySQL · Firebase"</span>,<br>
+&nbsp;&nbsp;support: <span class="o">true</span><br>
+};<br><span class="f">ditech</span>.<span class="f">build</span>(your.idea)<span class="cursor"></span>
+    </div>
+  </div>
+  <div class="cards three">
+    <article class="glass card rv" style="--rd:0.0s"><div class="num">01</div><h3 data-i18n="card1.t">Ինտեգրված մշակում</h3><p data-i18n="card1.d">Կոդն ու փաստաթղթավորումը մշակվում են միասնական ընթացքով՝ մասնագիտացված թիմի կողմից։</p></article>
+    <article class="glass card rv" style="--rd:0.12s"><div class="num">02</div><h3 data-i18n="card2.t">Ակադեմիական չափորոշիչներ</h3><p data-i18n="card2.d">Աշխատանքը մշակվում է ամբիոնի պահանջներին և ակադեմիական չափանիշներին համապատասխան։</p></article>
+    <article class="glass card rv" style="--rd:0.24s"><div class="num">03</div><h3 data-i18n="card3.t">Կանոնակարգված փոխգործակցություն</h3><p data-i18n="card3.d">Աշխատանքն իրականացվում է հստակ առաջադրանքով, փուլային վերահսկմամբ և կանոնավոր կապով։</p></article>
+  </div>
+  <div class="stats">
+    <div class="glass stat rv"><b data-count="4">0</b><small data-i18n="stat1">ուղղություն</small></div>
+    <div class="glass stat rv" style="--rd:.1s"><b data-count="3">0</b><small data-i18n="stat2">պլատֆորմ՝ վեբ, մոբայլ, desktop</small></div>
+    <div class="glass stat rv" style="--rd:.2s"><b data-count="10" data-suffix="+">0</b><small data-i18n="stat3">տեխնոլոգիա</small></div>
+    <div class="glass stat rv" style="--rd:.3s"><b data-count="100" data-suffix="%">0</b><small data-i18n="stat4">անհատական մոտեցում</small></div>
+  </div>
+</section>
+
+<section id="services" class="wrap section">
+  <div class="head rv"><h2 data-i18n="levels.title">Մշակման երեք հիմնական մակարդակները</h2></div><div class="cards three"><article class="glass card rv" style="--rd:0.0s"><div class="ico"><svg  fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 40 40">
+<rect height="19" rx="2" width="28" x="6" y="9"></rect>
+<path d="M13 34h14M20 28v6"></path>
+<path d="M14 15l-3 3.5 3 3.5M26 15l3 3.5-3 3.5M22 14l-4 10"></path>
+</svg></div><h3 data-i18n="levels.1.t">Ծրագրային ապահովման մշակում</h3><p data-i18n="levels.1.d">Նախագծվում է համակարգի կառուցվածքը և մշակվում Web, Mobile կամ Desktop լուծում՝ ըստ սահմանված պահանջների։</p></article>
+<article class="glass card rv" style="--rd:0.12s"><div class="ico"><svg  fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 40 40">
+<path d="M11 5h13l6 6v24H11z"></path>
+<path d="M24 5v6h6"></path>
+<path d="M16 20h10M16 25h10M16 30h6"></path>
+</svg></div><h3 data-i18n="levels.2.t">Ակադեմիական փաստաթղթավորում</h3><p data-i18n="levels.2.d">Ուսումնասիրվում են մասնագիտական աղբյուրները, վերլուծվում տվյալները և ձևակերպվում աշխատանքի արդյունքները։</p></article>
+<article class="glass card rv" style="--rd:0.24s"><div class="ico"><svg  fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 40 40">
+<rect height="19" rx="2" width="30" x="5" y="9"></rect>
+<path d="M15 33h10M20 28v5"></path>
+<path d="M11 14l6 4-6 4M22 22h7"></path>
+</svg></div><h3 data-i18n="levels.3.t">Պաշտպանության պատրաստում</h3><p data-i18n="levels.3.d">Պատրաստվում են պաշտպանության ելույթը, հնարավոր հարցերն ու պատասխաններն, ինչպես նաև ներկայացման սլայդները։</p></article></div>
+  
+  <div class="head rv"><h2 data-i18n="svc.title">Մեր ծառայությունները</h2><p class="lead" data-i18n="svc.lead">Իրականացնում ենք IT ոլորտի տարբեր ուղղությունների նախագծում և մշակում։</p></div>
+  <div class="cards four">
+    <article class="glass card rv"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg></div><h3 data-i18n="svc.webT">Վեբ համակարգեր</h3><p data-i18n="svc.webD">Վեբ կայքեր՝ admin panel, API, ինտեգրացիաներ՝ Java, C#, Python</p></article>
+    <article class="glass card rv" style="--rd:.1s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><h3 data-i18n="svc.mobT">Մոբայլ ծրագրեր</h3><p data-i18n="svc.mobD">Android/iOS, Kotlin, Flutter</p></article>
+    <article class="glass card rv" style="--rd:.2s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 010-8 5 5 0 019.6-1A4.5 4.5 0 0117 18z"/></svg></div><h3 data-i18n="svc.deskT">Desktop ծրագրեր</h3><p data-i18n="svc.deskD">Windows ծրագրեր, Java, Python, C#</p></article>
+    <article class="glass card rv" style="--rd:.3s"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><h3 data-i18n="svc.dbT">Տվյալների բազաներ</h3><p data-i18n="svc.dbD">MySQL, PostgreSQL, MsSQL, Firebase, NoSql</p></article>
+  </div>
+</section>
+
+<section id="why" class="wrap section">
+  <div class="head rv"><h2 data-i18n="why.title">Աշխատանքային պլանի փուլերը</h2></div>
+  <div class="steps rv" id="steps">
+    <div class="step"><div class="dot">01</div><h3 data-i18n="step1.t">Հայտի վերլուծություն</h3><p data-i18n="step1.d">Վերլուծվում են թեման, հիմնական պահանջները, աշխատանքի ծավալն ու վերջնաժամկետները։</p></div>
+    <div class="step"><div class="dot">02</div><h3 data-i18n="step2.t">Նախագծում և պլանավորում</h3><p data-i18n="step2.d">Սահմանվում են տեխնիկական առաջադրանքները, կառուցվածքն ու հիմնական փուլերը։</p></div>
+    <div class="step"><div class="dot">03</div><h3 data-i18n="step3.t">Իրականացում</h3><p data-i18n="step3.d">Ծրագրային կոդն ու փաստաթղթավորումը մշակվում են համատեղ՝ ըստ սահմանված պահանջների։</p></div>
+    <div class="step"><div class="dot">04</div><h3 data-i18n="step4.t">Ամփոփում և հանձնում</h3><p data-i18n="step4.d">Համակարգը թեստավորվում և ճշգրտվում է, ապա պատրաստվում են պաշտպանության համար անհրաժեշտ նյութերը։</p></div>
+  </div>
+</section>
+
+<section id="guarantees" class="wrap section"><div class="head rv"><h2 data-i18n="quality.title">Որակի և հուսալիության չափանիշներ</h2></div><div class="cards three"><article class="glass card rv" style="--rd:0.0s"><div class="ico"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M4 12l6 6L20 6"></path></svg></div><h3 data-i18n="quality.1.t">Անհատական մոտեցում</h3><p data-i18n="quality.1.d">Յուրաքանչյուր նախագիծ մշակվում է՝ համապատասխանեցվելով թեմայի առանձնահատկություններին և ղեկավարի պահանջներին</p></article>
+<article class="glass card rv" style="--rd:0.12s"><div class="ico"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M4 12l6 6L20 6"></path></svg></div><h3 data-i18n="quality.2.t">Ժամանակացույցի պահպանում</h3><p data-i18n="quality.2.d">Ժամկետները վերահսկվում են՝ ապահովելով յուրաքանչյուր փուլի ժամանակին և ճշգրիտ իրականացումը։</p></article>
+<article class="glass card rv" style="--rd:0.24s"><div class="ico"><svg fill="none" height="16" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="16"><path d="M4 12l6 6L20 6"></path></svg></div><h3 data-i18n="quality.3.t">Ակադեմիական ուղղորդում և լրամշակում</h3><p data-i18n="quality.3.d">Աշխատանքը լրամշակվում է ղեկավարի դիտողությունների և առաջարկությունների հիման վրա։</p></article></div></section>
+
+
+<section id="partners" class="wrap section">
+  <div class="head rv"><h2 data-i18n="partners.title">Մեր գործընկերները</h2><p class="lead" data-i18n="partners.lead">Համագործակցում ենք հիմնարկների հետ, որոնք մեր հաճախորդներին առաջարկում են հատուկ պայմաններ։</p></div>
+  <div class="partners-grid">
+    <a class="glass partner rv" style="--rd:0s" href="https://shat.am" target="_blank" rel="noopener noreferrer">
+      <div class="p-logo p-logo-img"><img src="shatam.png" alt="shat.am" height="30"></div>
+      <h3>shat.am</h3>
+      <p data-i18n="partners.shat.d">Ditech-ի գործընկեր հիմնարկ՝ մեր հաճախորդների համար հատուկ առաջարկներով։</p>
+      <span class="p-link">shat.am ↗</span>
+    </a>
+    <div class="glass partner rv" style="--rd:.12s">
+      <div class="p-logo p-logo-img"><img src="netver.png" alt="Netver" height="30"></div>
+      <h3>Netver</h3>
+      <p data-i18n="partners.netver.d">Ditech-ի գործընկեր ստուդիա՝ վեբ և մոբայլ մշակման ու դիզայնի ծառայություններով։</p>
+    </div>
+    <div class="glass partner rv" style="--rd:.24s">
+      <div class="p-logo p-logo-img"><img src="grigor-logo.png" alt="Grigor Medics" height="142"></div>
+      <h3>Grigor Medics</h3>
+      <p data-i18n="partners.grigor.d">Ditech-ի գործընկեր բժշկական ծառայություն՝ մեր հաճախորդների համար հատուկ առաջարկներով։</p>
+    </div>
+    <!-- Նոր գործընկեր ավելացնելու համար պատճենեք վերևի <a class="glass partner ..."> բլոկը -->
+  </div>
+  <div class="glass discount rv" style="--rd:.1s">
+    <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L3 13V3h10l7.6 7.6a2 2 0 010 2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg></div>
+    <div>
+      <h3 data-i18n="partners.disc.t">Զեղչեր Ditech-ի բոլոր հաճախորդների համար</h3>
+      <p data-i18n="partners.disc.d">Մեր գործընկեր հիմնարկների առաջարկած զեղչերից կարող են օգտվել Ditech-ի բոլոր հաճախորդները՝ առանց բացառության։</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="contact-modal" id="contactModal" aria-hidden="true">
+  <div class="contact-modal-card" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <button class="contact-modal-close" id="contactModalClose" type="button" data-i18n-aria="modal.close" aria-label="Փակել">×</button>
+    <h3 id="contactModalTitle" data-i18n="modal.title">Ինչպե՞ս եք ցանկանում կապվել մեզ հետ</h3>
+    <p data-i18n="modal.prompt">Ընտրեք կապի հարմար տարբերակը</p>
+    <div class="contact-options">
+      <a class="contact-option" href="https://t.me/ditechgraduate" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 3z"/></svg>
+        Telegram
+      </a>
+      <a class="contact-option" href="https://mail.google.com/mail/?view=cm&fs=1&to=academyditech@gmail.com&su=Ditech%20-%20Contact" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        Mail
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="wrap">
+  <a class="brand" href="#top"><span>Di</span>tech</a>
+  <span data-i18n="footer.copy">© 2026 Ditech։ Բոլոր իրավունքները պաշտպանված են։</span>
+  <div class="soc">
+    <a class="icon-btn" href="https://www.instagram.com/ditech.graduate/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></a>
+    <a class="icon-btn" href="https://t.me/ditechgraduate" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 3z"/></svg></a>
+    <a class="icon-btn" href="https://www.tiktok.com/@ditech.graduate" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3v10.5a4.5 4.5 0 1 1-4.5-4.5"/><path d="M15 3c.6 2.5 2.1 4 5 4.5"/></svg></a>
+    <a class="icon-btn" href="https://www.linkedin.com/company/ditech-am/posts/?viewAsMember=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16"/><circle cx="8" cy="7.7" r=".6" fill="currentColor"/><path d="M12 16v-5.5"/><path d="M12 13c0-1.6 1-2.5 2.3-2.5S16.5 11.4 16.5 13V16"/></svg></a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s){return document.querySelector(s)};
+  try{localStorage.removeItem('ditech-theme')}catch(e){}
+
+  /* languages */
+  var I18N={
+    "hy": {
+        "nav.about": "Մեր մասին",
+        "nav.services": "Ծառայություններ",
+        "nav.why": "Աշխատանքային փուլերը",
+        "nav.partners": "Գործընկերներ",
+        "nav.work": "Նախագծեր",
+        "nav.contact": "Կապ հաստատել",
+        "nav.lang": "Լեզու",
+        "nav.menu": "Մենյու",
+        "hero.title": "Ակադեմիական հաջողության",
+        "hero.grad": "վստահելի գործընկեր",
+        "hero.sub": "IT ոլորտի դիպլոմային և կուրսային աշխատանքների մշակում՝ ակադեմիական չափանիշներին համապատասխան։",
+        "hero.services": "Մեր ծառայությունները",
+        "hero.apply": "Կապ մեզ հետ",
+        "tag.web": "Վեբ համակարգեր",
+        "tag.mobile": "Մոբայլ ծրագրեր",
+        "tag.desktop": "Desktop ծրագրեր",
+        "tag.db": "Տվյալների բազաներ",
+        "about.eye": "Մեր մասին",
+        "about.text": "Ditech-ն աջակցում է ուսանողներին հաղթահարել ակադեմիական ճանապարհի բարդությունները՝ երաշխավորելով բարձր որակ և սահմանված չափանիշների պահպանում։ Աշխատանքի մոտեցումը համադրում է գործնական ծրագրավորումն ու ակադեմիական պահանջները՝ ստանալով ֆունկցիոնալ ծրագրային համակարգ և դրա գրագետ ակադեմիական հենքը։",
+        "card1.t": "Ինտեգրված մշակում",
+        "card1.d": "Կոդն ու փաստաթղթավորումը մշակվում են միասնական ընթացքով՝ մասնագիտացված թիմի կողմից։",
+        "card2.t": "Ակադեմիական չափորոշիչներ",
+        "card2.d": "Աշխատանքը մշակվում է ամբիոնի պահանջներին և ակադեմիական չափանիշներին համապատասխան։",
+        "card3.t": "Կանոնակարգված փոխգործակցություն",
+        "card3.d": "Աշխատանքն իրականացվում է հստակ առաջադրանքով, փուլային վերահսկմամբ և կանոնավոր կապով։",
+        "stat1": "ուղղություն",
+        "stat2": "պլատֆորմ՝ վեբ, մոբայլ, desktop",
+        "stat3": "տեխնոլոգիա",
+        "stat4": "անհատական մոտեցում",
+        "levels.title": "Մշակման երեք հիմնական մակարդակները",
+        "levels.1.t": "Ծրագրային ապահովման մշակում",
+        "levels.1.d": "Նախագծվում է համակարգի կառուցվածքը և մշակվում Web, Mobile կամ Desktop լուծում՝ ըստ սահմանված պահանջների։",
+        "levels.2.t": "Ակադեմիական փաստաթղթավորում",
+        "levels.2.d": "Ուսումնասիրվում են մասնագիտական աղբյուրները, վերլուծվում տվյալները և ձևակերպվում աշխատանքի արդյունքները։",
+        "levels.3.t": "Պաշտպանության պատրաստում",
+        "levels.3.d": "Պատրաստվում են պաշտպանության ելույթը, հնարավոր հարցերն ու պատասխաններն, ինչպես նաև ներկայացման սլայդները։",
+        "svc.title": "Մեր ծառայությունները",
+        "svc.lead": "Իրականացնում ենք IT ոլորտի տարբեր ուղղությունների նախագծում և մշակում։",
+        "svc.webT": "Վեբ համակարգեր",
+        "svc.webD": "Վեբ կայքեր՝ admin panel, API, ինտեգրացիաներ՝ Java, C#, Python",
+        "svc.mobT": "Մոբայլ ծրագրեր",
+        "svc.mobD": "Android/iOS, Kotlin, Flutter",
+        "svc.deskT": "Desktop ծրագրեր",
+        "svc.deskD": "Windows ծրագրեր, Java, Python, C#",
+        "svc.dbT": "Տվյալների բազաներ",
+        "svc.dbD": "MySQL, PostgreSQL, MsSQL, Firebase, NoSql",
+        "why.title": "Աշխատանքային պլանի փուլերը",
+        "step1.t": "Հայտի վերլուծություն",
+        "step1.d": "Վերլուծվում են թեման, հիմնական պահանջները, աշխատանքի ծավալն ու վերջնաժամկետները։",
+        "step2.t": "Նախագծում և պլանավորում",
+        "step2.d": "Սահմանվում են տեխնիկական առաջադրանքները, կառուցվածքն ու հիմնական փուլերը։",
+        "step3.t": "Իրականացում",
+        "step3.d": "Ծրագրային կոդն ու փաստաթղթավորումը մշակվում են համատեղ՝ ըստ սահմանված պահանջների։",
+        "step4.t": "Ամփոփում և հանձնում",
+        "step4.d": "Համակարգը թեստավորվում և ճշգրտվում է, ապա պատրաստվում են պաշտպանության համար անհրաժեշտ նյութերը։",
+        "quality.title": "Որակի և հուսալիության չափանիշներ",
+        "quality.1.t": "Անհատական մոտեցում",
+        "quality.1.d": "Յուրաքանչյուր նախագիծ մշակվում է՝ համապատասխանեցվելով թեմայի առանձնահատկություններին և ղեկավարի պահանջներին",
+        "quality.2.t": "Ժամանակացույցի պահպանում",
+        "quality.2.d": "Ժամկետները վերահսկվում են՝ ապահովելով յուրաքանչյուր փուլի ժամանակին և ճշգրիտ իրականացումը։",
+        "quality.3.t": "Ակադեմիական ուղղորդում և լրամշակում",
+        "quality.3.d": "Աշխատանքը լրամշակվում է ղեկավարի դիտողությունների և առաջարկությունների հիման վրա։",
+        "partners.title": "Մեր գործընկերները",
+        "partners.lead": "Համագործակցում ենք հիմնարկների հետ, որոնք մեր հաճախորդներին առաջարկում են հատուկ պայմաններ։",
+        "partners.shat.d": "Ditech-ի գործընկեր հիմնարկ՝ մեր հաճախորդների համար հատուկ առաջարկներով։",
+        "partners.netver.d": "Ditech-ի գործընկեր ստուդիա՝ վեբ և մոբայլ մշակման ու դիզայնի ծառայություններով։",
+        "partners.grigor.d": "Ditech-ի գործընկեր բժշկական ծառայություն՝ մեր հաճախորդների համար հատուկ առաջարկներով։",
+        "partners.disc.t": "Զեղչեր Ditech-ի բոլոր հաճախորդների համար",
+        "partners.disc.d": "Մեր գործընկեր հիմնարկների առաջարկած զեղչերից կարող են օգտվել Ditech-ի բոլոր հաճախորդները՝ առանց բացառության։",
+        "work.title": "Մեր աշխատանքներից",
+        "proj.web": "Վեբ հարթակ",
+        "proj.mob": "Մոբայլ հավելված",
+        "proj.desk": "Desktop ծրագիր",
+        "modal.close": "Փակել",
+        "modal.title": "Ինչպե՞ս եք ցանկանում կապվել մեզ հետ",
+        "modal.prompt": "Ընտրեք կապի հարմար տարբերակը",
+        "footer.copy": "© 2026 Ditech։ Բոլոր իրավունքները պաշտպանված են։",
+        "meta.title": "Ditech — IT լուծումներ",
+        "meta.desc": "Ditech — վեբ, մոբայլ և desktop համակարգեր բիզնեսի համար։"
+    },
+    "en": {
+        "meta.title": "Ditech — IT solutions",
+        "meta.desc": "Ditech — web, mobile, and desktop systems for business.",
+        "nav.about": "About us",
+        "nav.services": "Services",
+        "nav.why": "Work stages",
+        "nav.partners": "Partners",
+        "nav.work": "Projects",
+        "nav.contact": "Get in touch",
+        "nav.menu": "Menu",
+        "nav.lang": "Language",
+        "hero.title": "A trusted partner",
+        "hero.grad": "in academic success",
+        "hero.sub": "Development of IT graduation projects and coursework in accordance with academic standards.",
+        "hero.services": "Our services",
+        "hero.apply": "Contact us",
+        "tag.web": "Web systems",
+        "tag.mobile": "Mobile apps",
+        "tag.desktop": "Desktop apps",
+        "tag.db": "Databases",
+        "about.eye": "About us",
+        "about.text": "Ditech helps students overcome the challenges of their academic journey, ensuring high quality and compliance with established standards. Its approach combines practical programming with academic requirements to deliver a functional software system and a well-developed academic foundation.",
+        "card1.t": "Integrated development",
+        "card1.d": "Code and documentation are developed through a unified process by a specialized team.",
+        "card2.t": "Academic standards",
+        "card2.d": "The work is developed in accordance with departmental requirements and academic standards.",
+        "card3.t": "Structured collaboration",
+        "card3.d": "The work follows a clearly defined task, with supervision at each stage and regular communication.",
+        "stat1": "areas of expertise",
+        "stat2": "platforms: web, mobile, desktop",
+        "stat3": "technologies",
+        "stat4": "individual approach",
+        "levels.title": "The three main levels of development",
+        "levels.1.t": "Software development",
+        "levels.1.d": "The system architecture is designed and a web, mobile, or desktop solution is developed according to the specified requirements.",
+        "levels.2.t": "Academic documentation",
+        "levels.2.d": "Professional sources are studied, data is analyzed, and the results of the work are documented.",
+        "levels.3.t": "Defense preparation",
+        "levels.3.d": "The defense speech, potential questions and answers, and presentation slides are prepared.",
+        "svc.title": "Our services",
+        "svc.lead": "We design and develop projects across various areas of IT.",
+        "svc.webT": "Web systems",
+        "svc.webD": "Websites with admin panels, APIs, and integrations — Java, C#, Python",
+        "svc.mobT": "Mobile apps",
+        "svc.mobD": "Android/iOS, Kotlin, Flutter",
+        "svc.deskT": "Desktop apps",
+        "svc.deskD": "Windows applications, Java, Python, C#",
+        "svc.dbT": "Databases",
+        "svc.dbD": "MySQL, PostgreSQL, MsSQL, Firebase, NoSql",
+        "why.title": "Stages of the work plan",
+        "step1.t": "Request analysis",
+        "step1.d": "The topic, main requirements, scope of work, and deadlines are analyzed.",
+        "step2.t": "Design and planning",
+        "step2.d": "Technical tasks, the structure, and the main stages are defined.",
+        "step3.t": "Implementation",
+        "step3.d": "Software code and documentation are developed together according to the specified requirements.",
+        "step4.t": "Final review and delivery",
+        "step4.d": "The system is tested and refined, then the materials required for the defense are prepared.",
+        "quality.title": "Quality and reliability standards",
+        "quality.1.t": "Individual approach",
+        "quality.1.d": "Each project is developed to suit the specifics of the topic and the supervisor’s requirements.",
+        "quality.2.t": "Schedule adherence",
+        "quality.2.d": "Deadlines are monitored to ensure that each stage is completed on time and accurately.",
+        "quality.3.t": "Academic guidance and revision",
+        "quality.3.d": "The work is revised based on the supervisor’s comments and suggestions.",
+        "partners.title": "Our partners",
+        "partners.lead": "We cooperate with organizations that offer special conditions to our clients.",
+        "partners.shat.d": "A Ditech partner organization with special offers for our clients.",
+        "partners.netver.d": "A Ditech partner studio for web and mobile development and design.",
+        "partners.grigor.d": "A Ditech partner medical practice with special offers for our clients.",
+        "partners.disc.t": "Discounts for all Ditech clients",
+        "partners.disc.d": "All Ditech clients, without exception, can use the discounts offered by our partner organizations.",
+        "work.title": "Selected work",
+        "proj.web": "Web platform",
+        "proj.mob": "Mobile app",
+        "proj.desk": "Desktop app",
+        "modal.close": "Close",
+        "modal.title": "How would you like to contact us?",
+        "modal.prompt": "Choose your preferred contact method",
+        "footer.copy": "© 2026 Ditech. All rights reserved."
+    },
+    "ru": {
+        "meta.title": "Ditech — IT-решения",
+        "meta.desc": "Ditech — веб-системы, мобильные и настольные приложения для бизнеса.",
+        "nav.about": "О нас",
+        "nav.services": "Услуги",
+        "nav.why": "Этапы работы",
+        "nav.partners": "Партнёры",
+        "nav.work": "Проекты",
+        "nav.contact": "Связаться",
+        "nav.menu": "Меню",
+        "nav.lang": "Язык",
+        "hero.title": "Надёжный партнёр",
+        "hero.grad": "в академических успехах",
+        "hero.sub": "Разработка дипломных и курсовых работ в сфере IT в соответствии с академическими стандартами.",
+        "hero.services": "Наши услуги",
+        "hero.apply": "Связаться с нами",
+        "tag.web": "Веб-системы",
+        "tag.mobile": "Мобильные приложения",
+        "tag.desktop": "Настольные приложения",
+        "tag.db": "Базы данных",
+        "about.eye": "О нас",
+        "about.text": "Ditech помогает студентам преодолевать трудности на академическом пути, гарантируя высокое качество и соблюдение установленных стандартов. Подход к работе сочетает практическое программирование и академические требования, обеспечивая функциональную программную систему и грамотно подготовленную академическую основу.",
+        "card1.t": "Интегрированная разработка",
+        "card1.d": "Код и документация разрабатываются в рамках единого процесса специализированной командой.",
+        "card2.t": "Академические стандарты",
+        "card2.d": "Работа разрабатывается в соответствии с требованиями кафедры и академическими стандартами.",
+        "card3.t": "Организованное взаимодействие",
+        "card3.d": "Работа выполняется по чётко определённому заданию, с поэтапным контролем и регулярной связью.",
+        "stat1": "направления",
+        "stat2": "платформы: веб, мобильные, настольные",
+        "stat3": "технологий",
+        "stat4": "индивидуальный подход",
+        "levels.title": "Три основных уровня разработки",
+        "levels.1.t": "Разработка программного обеспечения",
+        "levels.1.d": "Проектируется структура системы и разрабатывается веб-, мобильное или настольное решение в соответствии с установленными требованиями.",
+        "levels.2.t": "Академическая документация",
+        "levels.2.d": "Изучаются профессиональные источники, анализируются данные и оформляются результаты работы.",
+        "levels.3.t": "Подготовка к защите",
+        "levels.3.d": "Готовятся выступление для защиты, возможные вопросы и ответы, а также слайды презентации.",
+        "svc.title": "Наши услуги",
+        "svc.lead": "Выполняем проектирование и разработку в различных направлениях IT.",
+        "svc.webT": "Веб-системы",
+        "svc.webD": "Веб-сайты с панелью администратора, API и интеграциями — Java, C#, Python",
+        "svc.mobT": "Мобильные приложения",
+        "svc.mobD": "Android/iOS, Kotlin, Flutter",
+        "svc.deskT": "Настольные приложения",
+        "svc.deskD": "Приложения для Windows, Java, Python, C#",
+        "svc.dbT": "Базы данных",
+        "svc.dbD": "MySQL, PostgreSQL, MsSQL, Firebase, NoSql",
+        "why.title": "Этапы рабочего плана",
+        "step1.t": "Анализ заявки",
+        "step1.d": "Анализируются тема, основные требования, объём работы и сроки.",
+        "step2.t": "Проектирование и планирование",
+        "step2.d": "Определяются технические задания, структура и основные этапы.",
+        "step3.t": "Реализация",
+        "step3.d": "Программный код и документация разрабатываются совместно в соответствии с установленными требованиями.",
+        "step4.t": "Подведение итогов и передача",
+        "step4.d": "Система тестируется и дорабатывается, затем готовятся материалы, необходимые для защиты.",
+        "quality.title": "Стандарты качества и надёжности",
+        "quality.1.t": "Индивидуальный подход",
+        "quality.1.d": "Каждый проект разрабатывается с учётом особенностей темы и требований руководителя.",
+        "quality.2.t": "Соблюдение графика",
+        "quality.2.d": "Сроки контролируются, обеспечивая своевременное и точное выполнение каждого этапа.",
+        "quality.3.t": "Академическое сопровождение и доработка",
+        "quality.3.d": "Работа дорабатывается на основе замечаний и предложений руководителя.",
+        "partners.title": "Наши партнёры",
+        "partners.lead": "Мы сотрудничаем с организациями, которые предлагают нашим клиентам особые условия.",
+        "partners.shat.d": "Организация-партнёр Ditech со специальными предложениями для наших клиентов.",
+        "partners.netver.d": "Студия-партнёр Ditech: веб- и мобильная разработка и дизайн.",
+        "partners.grigor.d": "Медицинский партнёр Ditech со специальными предложениями для наших клиентов.",
+        "partners.disc.t": "Скидки для всех клиентов Ditech",
+        "partners.disc.d": "Все клиенты Ditech без исключения могут воспользоваться скидками, которые предлагают наши партнёры.",
+        "work.title": "Наши работы",
+        "proj.web": "Веб-платформа",
+        "proj.mob": "Мобильное приложение",
+        "proj.desk": "Настольное приложение",
+        "modal.close": "Закрыть",
+        "modal.title": "Как вы хотите связаться с нами?",
+        "modal.prompt": "Выберите удобный способ связи",
+        "footer.copy": "© 2026 Ditech. Все права защищены."
+    }
+};
+  var langBox=$('#lang'), langBtn=$('#langBtn'), langDialog=$('#langDialog');
+  function closeLang(){ langDialog.hidden=true; langBtn.setAttribute('aria-expanded','false'); }
+  function setLang(code){
+    if(!I18N[code]) code='hy';
+    var dict=I18N[code];
+    document.documentElement.lang=code;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k=el.getAttribute('data-i18n');
+      if(dict[k]!=null) el.textContent=dict[k];
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var k=el.getAttribute('data-i18n-aria');
+      if(dict[k]!=null) el.setAttribute('aria-label',dict[k]);
+    });
+    document.title=dict['meta.title'];
+    var md=document.querySelector('meta[name="description"]');
+    if(md) md.setAttribute('content',dict['meta.desc']);
+    $('#langCode').textContent=code.toUpperCase();
+    var flagSrc=langDialog.querySelector('button[data-lang="'+code+'"] .flag');
+    if(flagSrc) $('#langFlag').innerHTML=flagSrc.innerHTML;
+    langDialog.querySelectorAll('button').forEach(function(b){
+      var on=b.getAttribute('data-lang')===code;
+      b.classList.toggle('active',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+    try{localStorage.setItem('ditech-lang',code)}catch(e){}
+  }
+  try{var saved=localStorage.getItem('ditech-lang'); setLang(saved || 'hy');}catch(e){setLang('hy');}
+  langBtn.addEventListener('click',function(){
+    var open=langDialog.hidden;
+    if(open){ closeMenu(); langDialog.hidden=false; langBtn.setAttribute('aria-expanded','true'); }
+    else closeLang();
+  });
+  langDialog.addEventListener('click',function(e){
+    var b=e.target.closest('button');
+    if(!b) return;
+    setLang(b.getAttribute('data-lang'));
+    closeLang();
+    langBtn.focus();
+  });
+
+  /* mobile menu */
+  var menu=$('#menu'), burger=$('#burger');
+  function closeMenu(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  burger.addEventListener('click',function(){
+    var o=menu.classList.toggle('open'); burger.setAttribute('aria-expanded',o?'true':'false');
+    if(o) closeLang();
+  });
+  menu.addEventListener('click',function(e){ if(e.target.tagName==='A') closeMenu(); });
+  document.addEventListener('click',function(e){
+    if(menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) closeMenu();
+    if(!langDialog.hidden && !langBox.contains(e.target)) closeLang();
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeMenu(); closeLang(); } });
+  addEventListener('resize',function(){ if(innerWidth>1240) closeMenu(); });
+
+  /* marquee */
+  var techs=['HTML','CSS','JavaScript','MySQL','PostgreSQL','Firebase','Kotlin','Flutter','Python',,'C#','Java'];
+  var html=''; for(var i=0;i<2;i++) techs.forEach(function(x){html+='<span>'+x+'</span>'});
+  $('#track').innerHTML=html;
+
+  /* scroll: progress, nav state, active link */
+  var nav=$('#nav'), bar=$('#progress');
+  var links=[].slice.call(document.querySelectorAll('.menu a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){
+    var h=document.documentElement; var y=h.scrollTop;
+    bar.style.width=(y/(h.scrollHeight-h.clientHeight)*100)+'%';
+    nav.classList.toggle('scrolled',y>30);
+    var cur=-1; secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<window.innerHeight*.4) cur=i });
+    links.forEach(function(a,i){a.classList.toggle('active',i===cur)});
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* reveal + counters */
+  function count(el){
+    var to=+el.dataset.count, suf=el.dataset.suffix||'', d=1400, t0=performance.now();
+    (function step(t){
+      var p=Math.min((t-t0)/d,1), e=1-Math.pow(1-p,4);
+      el.textContent=Math.round(to*e)+suf; if(p<1) requestAnimationFrame(step);
+    })(t0);
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if(!x.isIntersecting) return;
+      x.target.classList.add('in');
+      var c=x.target.querySelector('[data-count]'); if(c) count(c);
+      io.unobserve(x.target);
+    });
+  },{threshold:.18});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+  /* spotlight on glass cards */
+  document.querySelectorAll('.glass').forEach(function(c){
+    c.addEventListener('pointermove',function(e){
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      c.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  });
+
+  /* laptop parallax tilt */
+  var vis=$('#visual'), lap=$('#laptop');
+  if(!reduce && matchMedia('(pointer:fine)').matches){
+    vis.addEventListener('pointermove',function(e){
+      if(innerWidth<=680) return;
+      var r=vis.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      lap.style.transform='translate(-50%,-52%) rotateY('+(-12+x*16)+'deg) rotateX('+(6-y*14)+'deg)';
+    });
+    vis.addEventListener('pointerleave',function(){
+      if(innerWidth<=680){lap.style.transform='';return}
+      lap.style.transform='translate(-50%,-52%) rotateY(-12deg) rotateX(6deg)';
+    });
+    addEventListener('resize',function(){ if(innerWidth<=680) lap.style.transform=''; });
+  }
+
+  /* particle network background */
+  var cv=$('#bg'), ctx=cv.getContext('2d'), W,H,pts=[],mouse={x:-999,y:-999};
+  function size(){
+    var dpr=Math.min(devicePixelRatio||1,2);
+    W=cv.width=innerWidth*dpr; H=cv.height=innerHeight*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    var n=Math.min(90,Math.floor(innerWidth*innerHeight/16000));
+    pts=[]; for(var i=0;i<n;i++) pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,o:Math.random()>.85});
+  }
+  addEventListener('resize',size); size();
+  addEventListener('pointermove',function(e){mouse.x=e.clientX;mouse.y=e.clientY});
+  function draw(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    var base='108,196,238';
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i]; p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>innerWidth)p.vx*=-1; if(p.y<0||p.y>innerHeight)p.vy*=-1;
+      var dx=p.x-mouse.x, dy=p.y-mouse.y, d=Math.hypot(dx,dy);
+      if(d<120){p.x+=dx/d*1.2;p.y+=dy/d*1.2}
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.o?2:1.3,0,6.283);
+      ctx.fillStyle=p.o?'rgba(255,159,102,.8)':'rgba('+base+',.7)'; ctx.fill();
+      for(var j=i+1;j<pts.length;j++){
+        var q=pts[j], l=Math.hypot(p.x-q.x,p.y-q.y);
+        if(l<130){ctx.strokeStyle='rgba('+base+','+(.16*(1-l/130))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}
+      }
+    }
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  draw();
+  /* contact choice */
+  var contactBtn = $('#contactChoiceBtn');
+  var contactModal = $('#contactModal');
+  var contactClose = $('#contactModalClose');
+  function openContactModal(){
+    if(!contactModal) return;
+    contactModal.classList.add('open');
+    contactModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeContactModal(){
+    if(!contactModal) return;
+    contactModal.classList.remove('open');
+    contactModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+  if(contactBtn) contactBtn.addEventListener('click',openContactModal);
+  [].slice.call(document.querySelectorAll('a[href="#contact"]')).forEach(function(l){
+    l.addEventListener('click',function(e){ e.preventDefault(); openContactModal(); });
+  });
+  if(contactClose) contactClose.addEventListener('click',closeContactModal);
+  if(contactModal) contactModal.addEventListener('click',function(e){if(e.target===contactModal) closeContactModal()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape') closeContactModal()});
+
+})();
+</script>
+</body>
+</html>
