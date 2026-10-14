@@ -124,6 +124,7 @@ h1 .grad{background:linear-gradient(120deg,var(--cyan),var(--blue) 45%,var(--ora
 .base{height:12px;margin:0 -6%;border-radius:0 0 18px 18px;background:var(--base);box-shadow:0 20px 40px rgba(0,0,0,.5)}
 .tag{position:absolute;display:flex;align-items:center;gap:8px;padding:11px 16px;border-radius:14px;font-size:.82rem;font-weight:600;background:rgba(20,40,90,.45);border:1px solid rgba(140,180,255,.3);backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(0,0,0,.35);animation:bob 6s ease-in-out infinite}
 .tag svg{width:18px;height:18px;color:var(--accent-t)}
+.tag span{text-align:center}
 .t1{top:6%;left:2%}.t2{top:12%;right:0;animation-delay:-1.5s}.t3{bottom:14%;left:0;animation-delay:-3s}.t4{bottom:6%;right:4%;animation-delay:-4.5s}
 @keyframes bob{50%{transform:translateY(-12px)}}
 
@@ -132,7 +133,6 @@ h1 .grad{background:linear-gradient(120deg,var(--cyan),var(--blue) 45%,var(--ora
 .head{max-width:640px;margin-bottom:36px}
 /* Consistent vertical rhythm between headings and content blocks */
 #about .about{margin-bottom:36px}
-#about .cards + .stats{margin-top:24px}
 #services .cards.three{margin-bottom:72px}
 #services .head{margin-bottom:36px}
 /* Match every section-top gap to the gap before “Մեր ծառայությունները” */
@@ -181,11 +181,6 @@ h2{font-family:var(--display);font-size:clamp(1.9rem,3.6vw,2.8rem);letter-spacin
 .ico{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(63,163,224,.2),rgba(255,159,102,.12));border:1px solid var(--card-b);margin-bottom:18px;color:var(--accent-t);transition:.5s var(--ease)}
 .ico svg{width:26px;height:26px}
 .card:hover .ico{transform:rotate(-8deg) scale(1.1);color:var(--orange)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px}
-.stat{padding:24px;text-align:center}
-.stat b{font-family:var(--display);font-size:2.4rem;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat small{display:block;color:var(--muted)}
-
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
 .steps::before{content:"";position:absolute;top:30px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--blue),var(--orange),var(--cyan));transform-origin:left;transform:scaleX(0);transition:transform 1.8s var(--ease) .2s;opacity:.7}
@@ -269,7 +264,7 @@ footer{border-top:1px solid var(--card-b);margin-top:90px;padding:28px 0 max(28p
 }
 @media(max-width:980px){
   .hero-grid,.about,.contact{grid-template-columns:1fr}
-  .cards.four,.stats{grid-template-columns:repeat(2,1fr)}
+  .cards.four{grid-template-columns:repeat(2,1fr)}
   .cards.three,.projects{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr;row-gap:28px}.steps::before{display:none}
   .hero{min-height:auto;padding:108px 0 48px}
@@ -300,10 +295,6 @@ footer{border-top:1px solid var(--card-b);margin-top:90px;padding:28px 0 max(28p
   .mini{padding:12px}
   .cards.four,.cards.three{grid-template-columns:1fr}
   .card{padding:20px}
-  .stats{gap:12px}
-  .stat{padding:18px 12px}
-  .stat b{font-size:clamp(1.6rem,8vw,2.1rem)}
-  .stat small{font-size:.78rem}
   .steps{grid-template-columns:1fr;gap:12px}
   .step{display:grid;grid-template-columns:54px 1fr;text-align:left;align-items:center;column-gap:14px;row-gap:2px;padding:12px 14px;border-radius:16px;background:var(--card);border:1px solid var(--card-b)}
   .dot{grid-column:1;grid-row:1 / span 2;margin:0;width:54px;height:54px}
@@ -313,7 +304,7 @@ footer{border-top:1px solid var(--card-b);margin-top:90px;padding:28px 0 max(28p
   .laptop{grid-area:stage;position:relative;left:auto;top:auto;width:min(100%,300px);margin:4px auto 2px;transform:none;animation:none}
   .base{margin:0}
   .t1{grid-area:t1}.t2{grid-area:t2}.t3{grid-area:t3}.t4{grid-area:t4}
-  .tag{position:static;justify-content:center;animation:none;font-size:.78rem;padding:10px 12px;text-align:left}
+  .tag{position:static;flex-direction:row;justify-content:center;align-items:center;animation:none;font-size:.78rem;padding:10px 12px;text-align:center}
   .codepic{font-size:.72rem;padding:14px;overflow-x:auto}
   .about{gap:22px;margin-bottom:22px}
   .projects{gap:14px}
@@ -329,7 +320,6 @@ footer{border-top:1px solid var(--card-b);margin-top:90px;padding:28px 0 max(28p
   .wrap{width:min(1180px,calc(100% - 24px))}
   .nav{padding-left:12px}
   .brand{font-size:1.15rem}
-  .stats{grid-template-columns:1fr 1fr}
   .tag{font-size:.72rem;padding:9px 10px;gap:6px}
   .tag svg{width:16px;height:16px}
   .card h3,.proj h3{font-size:1rem}
@@ -410,7 +400,7 @@ h1,h2,h3,.head h2,.card h3,.step h3,.proj h3,.partner h3{text-wrap:balance;word-
 h1,h2{letter-spacing:-.01em}
 .cards .card h3{min-height:0!important;margin:8px 0 8px;line-height:1.35}
 .cards .card p,.proj p,.partner p,.about p,.contact p{line-height:1.7;max-width:62ch}
-.step p,.stat small,.contact-modal-card p{text-align:center;text-wrap:balance;max-width:none;margin-inline:auto}
+.step p,.contact-modal-card p{text-align:center;text-wrap:balance;max-width:none;margin-inline:auto}
 .contact-modal-card h3{text-wrap:balance}
 @media(max-width:680px){.step p,.step h3{text-align:left;text-wrap:pretty}}
 /* Work stages: equal rows (dot / title / text align across all cards) */
@@ -511,12 +501,6 @@ h1,h2{letter-spacing:-.01em}
     <article class="glass card rv" style="--rd:0.0s"><div class="num">01</div><h3 data-i18n="card1.t">Ինտեգրված մշակում</h3><p data-i18n="card1.d">Կոդն ու փաստաթղթավորումը մշակվում են միասնական ընթացքով՝ մասնագիտացված թիմի կողմից։</p></article>
     <article class="glass card rv" style="--rd:0.12s"><div class="num">02</div><h3 data-i18n="card2.t">Ակադեմիական չափորոշիչներ</h3><p data-i18n="card2.d">Աշխատանքը մշակվում է ամբիոնի պահանջներին և ակադեմիական չափանիշներին համապատասխան։</p></article>
     <article class="glass card rv" style="--rd:0.24s"><div class="num">03</div><h3 data-i18n="card3.t">Կանոնակարգված փոխգործակցություն</h3><p data-i18n="card3.d">Աշխատանքն իրականացվում է հստակ առաջադրանքով, փուլային վերահսկմամբ և կանոնավոր կապով։</p></article>
-  </div>
-  <div class="stats">
-    <div class="glass stat rv"><b data-count="4">0</b><small data-i18n="stat1">ուղղություն</small></div>
-    <div class="glass stat rv" style="--rd:.1s"><b data-count="3">0</b><small data-i18n="stat2">պլատֆորմ՝ վեբ, մոբայլ, desktop</small></div>
-    <div class="glass stat rv" style="--rd:.2s"><b data-count="10" data-suffix="+">0</b><small data-i18n="stat3">տեխնոլոգիա</small></div>
-    <div class="glass stat rv" style="--rd:.3s"><b data-count="100" data-suffix="%">0</b><small data-i18n="stat4">անհատական մոտեցում</small></div>
   </div>
 </section>
 
@@ -656,10 +640,6 @@ h1,h2{letter-spacing:-.01em}
         "card2.d": "Աշխատանքը մշակվում է ամբիոնի պահանջներին և ակադեմիական չափանիշներին համապատասխան։",
         "card3.t": "Կանոնակարգված փոխգործակցություն",
         "card3.d": "Աշխատանքն իրականացվում է հստակ առաջադրանքով, փուլային վերահսկմամբ և կանոնավոր կապով։",
-        "stat1": "ուղղություն",
-        "stat2": "պլատֆորմ՝ վեբ, մոբայլ, desktop",
-        "stat3": "տեխնոլոգիա",
-        "stat4": "անհատական մոտեցում",
         "levels.title": "Մշակման երեք հիմնական մակարդակները",
         "levels.1.t": "Ծրագրային ապահովման մշակում",
         "levels.1.d": "Նախագծվում է համակարգի կառուցվածքը և մշակվում Web, Mobile կամ Desktop լուծում՝ ըստ սահմանված պահանջների։",
@@ -739,10 +719,6 @@ h1,h2{letter-spacing:-.01em}
         "card2.d": "The work is developed in accordance with departmental requirements and academic standards.",
         "card3.t": "Structured collaboration",
         "card3.d": "The work follows a clearly defined task, with supervision at each stage and regular communication.",
-        "stat1": "areas of expertise",
-        "stat2": "platforms: web, mobile, desktop",
-        "stat3": "technologies",
-        "stat4": "individual approach",
         "levels.title": "The three main levels of development",
         "levels.1.t": "Software development",
         "levels.1.d": "The system architecture is designed and a web, mobile, or desktop solution is developed according to the specified requirements.",
@@ -820,10 +796,6 @@ h1,h2{letter-spacing:-.01em}
         "card2.d": "Работа разрабатывается в соответствии с требованиями кафедры и академическими стандартами.",
         "card3.t": "Организованное взаимодействие",
         "card3.d": "Работа выполняется по чётко определённому заданию, с поэтапным контролем и регулярной связью.",
-        "stat1": "направления",
-        "stat2": "платформы: веб, мобильные, настольные",
-        "stat3": "технологий",
-        "stat4": "индивидуальный подход",
         "levels.title": "Три основных уровня разработки",
         "levels.1.t": "Разработка программного обеспечения",
         "levels.1.d": "Проектируется структура системы и разрабатывается веб-, мобильное или настольное решение в соответствии с установленными требованиями.",
@@ -935,6 +907,27 @@ h1,h2{letter-spacing:-.01em}
   var html=''; for(var i=0;i<2;i++) techs.forEach(function(x){html+='<span>'+x+'</span>'});
   $('#track').innerHTML=html;
 
+
+  /* scroll so the whole "Մեր ծառայությունները" block (heading + 4 cards) is in view */
+  function goServices(e){
+    var t=document.querySelector('[data-i18n="svc.title"]');
+    var head=t&&t.closest('.head');
+    if(!head) return;
+    var grid=head.nextElementSibling;
+    e.preventDefault();
+    if(typeof closeMenu==='function') closeMenu();
+    var top=head.getBoundingClientRect().top+window.pageYOffset;
+    var bottom=(grid||head).getBoundingClientRect().bottom+window.pageYOffset;
+    var navH=96, vh=window.innerHeight, h=bottom-top;
+    /* block fits on screen -> centre it below the navbar; otherwise align heading under navbar */
+    var y = h<=vh-navH-24 ? top-navH-((vh-navH-h)/2) : top-navH-8;
+    window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+    if(history.replaceState) history.replaceState(null,'','#services');
+  }
+  [].slice.call(document.querySelectorAll('a[href="#services"]')).forEach(function(l){
+    l.addEventListener('click',goServices);
+  });
+
   /* scroll: progress, nav state, active link */
   var nav=$('#nav'), bar=$('#progress');
   var links=[].slice.call(document.querySelectorAll('.menu a'));
@@ -948,19 +941,11 @@ h1,h2{letter-spacing:-.01em}
   }
   addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
-  /* reveal + counters */
-  function count(el){
-    var to=+el.dataset.count, suf=el.dataset.suffix||'', d=1400, t0=performance.now();
-    (function step(t){
-      var p=Math.min((t-t0)/d,1), e=1-Math.pow(1-p,4);
-      el.textContent=Math.round(to*e)+suf; if(p<1) requestAnimationFrame(step);
-    })(t0);
-  }
+  /* reveal */
   var io=new IntersectionObserver(function(en){
     en.forEach(function(x){
       if(!x.isIntersecting) return;
       x.target.classList.add('in');
-      var c=x.target.querySelector('[data-count]'); if(c) count(c);
       io.unobserve(x.target);
     });
   },{threshold:.18});
@@ -1043,6 +1028,27 @@ h1,h2{letter-spacing:-.01em}
   if(contactModal) contactModal.addEventListener('click',function(e){if(e.target===contactModal) closeContactModal()});
   document.addEventListener('keydown',function(e){if(e.key==='Escape') closeContactModal()});
 
+})();
+
+/* shrink-wrap tag text so the icon sits right next to it (centered group) */
+(function(){
+  function fitTags(){
+    document.querySelectorAll('.tag span').forEach(function(sp){
+      sp.style.width='';
+      if(getComputedStyle(sp.parentElement).position!=='static') return;
+      var r=document.createRange(); r.selectNodeContents(sp);
+      var rects=Array.prototype.slice.call(r.getClientRects());
+      if(!rects.length) return;
+      var w=Math.max.apply(null,rects.map(function(x){return x.width;}));
+      sp.style.width=(Math.ceil(w)+1)+'px';
+    });
+  }
+  window.addEventListener('load',fitTags);
+  window.addEventListener('resize',fitTags);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitTags);
+  var mo=new MutationObserver(function(){mo.disconnect();fitTags();observe();});
+  function observe(){document.querySelectorAll('.tag span').forEach(function(sp){mo.observe(sp,{childList:true,characterData:true,subtree:true});});}
+  observe(); fitTags();
 })();
 </script>
 </body>
